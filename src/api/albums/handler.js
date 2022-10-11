@@ -61,15 +61,13 @@ class AlbumsHandler {
     const { id } = request.params;
     const oldCover = await this._albumsService.getOldCover(id);
 
-    if (!oldCover) {
-      const fileLocation = await this._storageService.writeFile(cover, cover.hapi);
-      await this._albumsService.editAlbumCover(id, fileLocation);
-    } else {
+    if (oldCover) {
       const filename = oldCover.split('/').splice(-1)[0];
       await this._storageService.deleteFile(filename);
-      const fileLocation = await this._storageService.writeFile(cover, cover.hapi);
-      await this._albumsService.editAlbumCover(id, fileLocation);
     }
+
+    const fileLocation = await this._storageService.writeFile(cover, cover.hapi);
+    await this._albumsService.editAlbumCover(id, fileLocation);
 
     const response = h.response({
       status: 'success',
