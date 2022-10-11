@@ -24,10 +24,10 @@ class StorageService {
     });
   }
 
-  deleteFile(file) {
+  deleteFile(filename) {
     const parameter = {
       Bucket: process.env.AWS_BUCKET_NAME,
-      Key: file,
+      Key: filename,
     };
 
     return new Promise((resolve, reject) => {
