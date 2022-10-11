@@ -32,7 +32,7 @@ class SongsService {
 
   async getSongById(id) {
     const query = {
-      text: 'SELECT id, title, year, performer, genre, duration, album_id as albumId FROM songs WHERE id = $1',
+      text: 'SELECT id, title, year, performer, genre, duration, album_id as "albumId" FROM songs WHERE id = $1',
       values: [id],
     };
 
